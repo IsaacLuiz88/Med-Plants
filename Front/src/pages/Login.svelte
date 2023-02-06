@@ -20,6 +20,7 @@
             alert("Usuário ou senha incorreto");
             return;
         }
+        alert("Seja Bem-vindo(a) ao MedPlants!");
         $logado = true;
         $page = "ervas";
         $usuario = await response.json();
@@ -39,7 +40,9 @@
 </script>
 
 <div class="container">
-    <h1> Seu site de busca de ervas e plantas medicinais</h1>
+    <div class="alert alert-success ">
+        <h2 class="text-center"> Seu site para busca de ervas e plantas medicinais</h2>
+    </div>
     <div class="card">
         <img id="profile-img" class="profile-img-card my-5" alt="logo" src="/images/logo.png" />
 

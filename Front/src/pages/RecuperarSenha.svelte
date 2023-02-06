@@ -53,7 +53,7 @@
             <div class="descricao mb-2">Informe o email cadastrado:</div>
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <input type="text" id="inputResposta" class="item form-control" bind:value={email} placeholder="email" required>
+                    <input type="text" id="inputResposta" class="item form-control" bind:value={email} placeholder="Email" required>
                 </div>
             </div>
 

@@ -12,6 +12,7 @@
         if (response.ok) {
             $logado = false;
         }
+        alert("Até a próxima!")
     }
 </script>
 

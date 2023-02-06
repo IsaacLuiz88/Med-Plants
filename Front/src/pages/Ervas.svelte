@@ -1,34 +1,47 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/ervas.css">
 
 <script>
-
   import { onMount } from "svelte";
-
   import { ervas, changePage, ervaAtual } from "../assets/js/stores";
   import { ENDPOINT_LISTAR_ERVAS, ENDPOINT_DELETE_ERVA} from "../assets/js/endpoints";
 
-  let busca, ervasFiltradas; 
+  let busca;
+  let ervasFiltradas = [];
 
   onMount(async () => {
     carregarErvas()
   });
-  ervasFiltradas = $ervas
 
   async function carregarErvas() {
     const response = await fetch( ENDPOINT_LISTAR_ERVAS , {
       credentials: "include",
     });
-
     if (response.ok) {
       $ervas = await response.json();
+      ervasFiltradas = $ervas
     }
   }
-
   function mudarPagina (erva) {
     $ervaAtual = erva; 
     changePage("atualizar-erva");
   }
-
+  
+  function filtrar() {
+    if (!busca) return null;
+    
+    ervasFiltradas = $ervas.filter((erva) => {
+      const nome = erva.NOME_POPULAR_ERV.toLowerCase();
+      const nomeCientifico = erva.NOME_CIENTIFICO.toLowerCase();
+      const indicacao = erva.INDICACAO_USO_ERV.toLowerCase();
+      const propriedades = erva.PROPRIEDADES_ERV.toLowerCase();  
+      
+      
+      return nome.includes(busca.toLowerCase()) 
+        || nomeCientifico.includes(busca.toLowerCase()) 
+        || indicacao.includes(busca.toLowerCase())
+        || propriedades.includes(busca.toLowerCase());
+    });
+  }
   async function deleteErva(id) {
     const form = new FormData();
     form.append("id_erv", id);
@@ -45,27 +58,24 @@
     alert("Erva deletada com Sucesso!")
   } 
  
-
 </script>
 
 <div class="container mt-2">
   <div class="card mb-2">
-    <form class="row g-2">
+    <form class="row g-2 form-filter">
       <div class="col-auto">
         <label for="busca" id="busca" class="visually-hidden">Digite a erva/planta medicinal que você está buscando:</label>
-        <input type="text" class="form-control" placeholder="Digite aqui" bind:value={busca}>
-        <button type="submit" class="btn btn-sucess mt-2 mb-3">Buscar</button>
-      </div>
+        <input type="text" class="form-control" placeholder="Digite aqui" on:input={filtrar} bind:value={busca}>
     </form>
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-success width mt-4" on:click={() => changePage('cadastrar-erva')}>
+        <button class="btn btn-success width mt-5" on:click={() => changePage('cadastrar-erva')}>
           Cadastrar nova erva
         </button>
       </div>
     </div>
     
-    <div class="row text-center mt-5">
+    <div class="row text-center mt-4">
       <div class="col-sm-12">
         <table class="table table-hover table-striped table-light">
           <thead>

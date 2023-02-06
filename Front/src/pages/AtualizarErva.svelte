@@ -40,7 +40,7 @@
                 <div class="col-sm-12">
                     <div class="principal">
                       Nome Popular:
-                     <input type="text" class="form-control" bind:value={nomePopular} placeholder="Nome popular" required pattern="([a-zA-ZÀ-ú ]+)" > 
+                     <input type="text" class="form-control" bind:value={nomePopular} placeholder="Nome popular" required pattern="([a-zA-ZÀ-ú \-]+)" > 
                     </div>
                 </div>
             </div>
