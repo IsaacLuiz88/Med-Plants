@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded&display=swap');
 body{
     background: url('../images/fundologin.png');
     background-size: 80em 55em;
+}
+h1 {
+    text-align: left;
+    font-family: 'Unbounded', cursive;
 }
 .btn {
     color: aquamarine;

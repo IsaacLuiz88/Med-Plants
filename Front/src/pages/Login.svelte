@@ -39,6 +39,7 @@
 </script>
 
 <div class="container">
+    <h1> Seu site de busca de ervas e plantas medicinais</h1>
     <div class="card">
         <img id="profile-img" class="profile-img-card my-5" alt="logo" src="/images/logo.png" />
 

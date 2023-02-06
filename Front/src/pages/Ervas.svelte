@@ -7,9 +7,12 @@
   import { ervas, changePage, ervaAtual } from "../assets/js/stores";
   import { ENDPOINT_LISTAR_ERVAS, ENDPOINT_DELETE_ERVA} from "../assets/js/endpoints";
 
+  let busca, ervasFiltradas; 
+
   onMount(async () => {
     carregarErvas()
   });
+  ervasFiltradas = $ervas
 
   async function carregarErvas() {
     const response = await fetch( ENDPOINT_LISTAR_ERVAS , {
@@ -40,17 +43,23 @@
     }
     carregarErvas()
     alert("Erva deletada com Sucesso!")
-  }
-
+  } 
+ 
 
 </script>
 
 <div class="container mt-2">
   <div class="card mb-2">
-    
+    <form class="row g-2">
+      <div class="col-auto">
+        <label for="busca" id="busca" class="visually-hidden">Digite a erva/planta medicinal que você está buscando:</label>
+        <input type="text" class="form-control" placeholder="Digite aqui" bind:value={busca}>
+        <button type="submit" class="btn btn-sucess mt-2 mb-3">Buscar</button>
+      </div>
+    </form>
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-success width" on:click={() => changePage('cadastrar-erva')}>
+        <button class="btn btn-success width mt-4" on:click={() => changePage('cadastrar-erva')}>
           Cadastrar nova erva
         </button>
       </div>
@@ -71,7 +80,7 @@
             </tr>
           </thead>
           <tbody>
-            {#each $ervas as erva, i }
+            {#each ervasFiltradas as erva, i }
               <tr>
                 <td>{i+1}</td>
                 <td>{erva.NOME_POPULAR_ERV}</td>
